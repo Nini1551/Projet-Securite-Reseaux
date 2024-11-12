@@ -1,0 +1,42 @@
+enable
+!
+configure terminal
+!
+hostname SW-03
+!
+no ip routing
+!
+vlan 10
+ name MEDECINS
+!
+vlan 20
+ name SECRETAIRES
+!
+interface FastEthernet1/1
+ switchport mode access
+ switchport access vlan 10
+!
+interface FastEthernet1/2
+ switchport mode access
+ switchport access vlan 10
+!
+interface FastEthernet1/3
+ switchport mode access
+ switchport access vlan 10
+!
+interface FastEthernet1/4
+ switchport mode access
+ switchport access vlan 20
+!
+interface FastEthernet1/5
+ switchport mode access
+ switchport access vlan 20
+!
+interface FastEthernet1/15
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,2,10,20,1002-1005
+!
+end
+!
+copy running-config startup-config
