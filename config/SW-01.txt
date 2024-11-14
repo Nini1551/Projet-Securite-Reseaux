@@ -1,0 +1,37 @@
+enable
+!
+configure terminal
+!
+hostname SW-01
+!
+no ip routing
+!
+ip domain-name meditechbelgica.be
+!
+username admin privilege 15 secret KnoppersMilk123.
+username helpdesk privilege 1 secret cisco
+! 
+crypto key generate rsa
+ 1024
+!
+ip ssh version 2
+!
+line vty 0 15
+ login local
+ transport input ssh
+!
+vlan 99
+ name MANAGEMENT
+!
+interface FastEthernet1/15
+ switchport trunk allowed vlan 1,2,99,1002-1005
+ switchport mode trunk
+!         
+interface Vlan99
+ ip address 192.168.99.241 255.255.255.0
+!
+ip default-gateway 192.168.99.254
+!
+end
+!
+copy running-config startup-config
