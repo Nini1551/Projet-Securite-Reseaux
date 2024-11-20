@@ -2,7 +2,7 @@ enable
 !
 configure terminal
 !
-hostname SW-02
+hostname SW-01
 !
 no ip routing
 !
@@ -20,6 +20,10 @@ line vty 0 15
  login local
  transport input ssh
 !
+vtp domain meditechbelgica.be
+!
+vtp mode transparent
+!
 vlan 99
  name MANAGEMENT
 !
@@ -28,7 +32,7 @@ interface FastEthernet1/15
  switchport mode trunk
 !         
 interface Vlan99
- ip address 192.168.99.242 255.255.255.0
+ ip address 192.168.99.241 255.255.255.0
 !
 ip default-gateway 192.168.99.254
 !
