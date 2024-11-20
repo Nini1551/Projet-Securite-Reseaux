@@ -1,0 +1,13 @@
+[Interface]
+ListenPort = 51820
+Address = 192.168.80.1/32
+PostUp = wg set %i private-key /etc/wireguard/privatekey
+PostUp = resolvectl dns %i 192.168.90.2
+PostUp = resolvectl default-route %i no
+PostUp = resolvectl domain %i meditechbelgica.be
+
+[Peer]
+PublicKey = ZaXCQJgapDeT0DK6YdKIdIg/in50HIdGOPafUlLIQF0=
+PresharedKey = J1tLqycdPRXne1L7Lh/yWzUbKZqHknPw3VCLautoWT8= 
+AllowedIPs = 192.168.80.254/32, 172.16.0.1/32, 192.168.90.2/32
+Endpoint = 192.168.122.83:51820
