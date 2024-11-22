@@ -20,17 +20,34 @@ line vty 0 15
  login local
  transport input ssh
 !
+vtp version 2
+!
 vtp domain meditechbelgica.be
 !
-vtp mode transparent
+vtp password KnoppersMilk123
 !
-vlan 99
- name MANAGEMENT
+vtp mode client
 !
-interface FastEthernet1/15
- switchport trunk allowed vlan 1,2,99,1002-1005
+interface FastEthernet1/1
+ switchport mode access
+ switchport access vlan 100
+!
+interface FastEthernet1/2
+ switchport mode access
+ switchport access vlan 50
+!
+interface FastEthernet1/3
+ switchport mode access
+ switchport access vlan 90
+!
+interface FastEthernet1/14
+ switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
  switchport mode trunk
-!         
+!    
+interface FastEthernet1/15
+ switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
+ switchport mode trunk
+!             
 interface Vlan99
  ip address 192.168.99.241 255.255.255.0
 !
