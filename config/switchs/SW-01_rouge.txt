@@ -35,7 +35,6 @@ ip dhcp snooping vlan 1,2,10,20,50,90,99,100,131,1002-1005
 interface G1/1
  switchport mode access
  switchport access vlan 100
- ip dhcp snooping trust
  ip dhcp snooping limit rate 100
 !
 interface G1/2
@@ -46,6 +45,7 @@ interface G1/2
 interface G1/3
  switchport mode access
  switchport access vlan 90
+ ip dhcp snooping trust
  ip dhcp snooping limit rate 100
 !
 interface G3/2
