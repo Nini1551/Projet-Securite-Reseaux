@@ -1,0 +1,74 @@
+enable
+!
+configure terminal
+!
+hostname SW-02
+!
+no ip routing
+!
+ip domain-name meditechbelgica.be
+!
+username admin privilege 15 secret KnoppersMilk123.
+username helpdesk privilege 1 secret cisco
+! 
+crypto key generate rsa
+ 1024
+!
+ip ssh version 2
+!
+line vty 0 15
+ login local
+ transport input ssh
+!
+vtp version 2
+!
+vtp domain meditechbelgica.be
+!
+vtp password KnoppersMilk123
+!
+vtp mode client
+!
+ip dhcp snooping
+no ip dhcp snooping information option
+ip dhcp snooping vlan 1,2,10,20,50,90,99,100,131,1002-1005
+!
+interface G1/1
+ switchport mode access
+ switchport access vlan 10
+ ip dhcp snooping limit rate 100
+!
+interface G1/2
+ switchport mode access
+ switchport access vlan 10
+ ip dhcp snooping limit rate 100
+!
+interface G1/3
+ switchport mode access
+ switchport access vlan 10
+ ip dhcp snooping limit rate 100
+!
+interface G2/1
+ switchport mode access
+ switchport access vlan 20
+ ip dhcp snooping limit rate 100
+!
+interface G2/2
+ switchport mode access
+ switchport access vlan 20
+ ip dhcp snooping limit rate 100
+!
+interface G3/2
+ switchport trunk allowed vlan 1,2,10,20,99,1002-1005
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ ip dhcp snooping trust
+ ip dhcp snooping limit rate 100
+!               
+interface Vlan99
+ ip address 192.168.99.242 255.255.255.0
+!
+ip default-gateway 192.168.99.254
+!
+end
+!
+copy running-config startup-config
