@@ -30,19 +30,21 @@ vtp password KnoppersMilk123
 !
 vtp mode client
 !
-interface FastEthernet1/1
+interface GigabitEthernet1/1
  switchport mode access
  switchport access vlan 131
 !
-interface FastEthernet1/2
+interface GigabitEthernet1/2
  switchport mode access
  switchport access vlan 131
 !
-interface FastEthernet1/14
+interface GigabitEthernet3/2
+ switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 1,2,99,131,1002-1005
  switchport mode trunk
 !    
-interface FastEthernet1/15
+interface GigabitEthernet3/3
+ switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 1,2,99,131,1002-1005
  switchport mode trunk
 !             

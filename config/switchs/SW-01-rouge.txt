@@ -2,7 +2,7 @@ enable
 !
 configure terminal
 !
-hostname SW-03
+hostname SW-01
 !
 no ip routing
 !
@@ -30,24 +30,30 @@ vtp password KnoppersMilk123
 !
 vtp mode client
 !
-interface FastEthernet1/1
+interface GigabitEthernet1/1
  switchport mode access
- switchport access vlan 131
+ switchport access vlan 100
 !
-interface FastEthernet1/2
+interface GigabitEthernet1/2
  switchport mode access
- switchport access vlan 131
+ switchport access vlan 50
 !
-interface FastEthernet1/14
- switchport trunk allowed vlan 1,2,99,131,1002-1005
+interface GigabitEthernet1/3
+ switchport mode access
+ switchport access vlan 90
+!
+interface GigabitEthernet3/2
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
  switchport mode trunk
 !    
-interface FastEthernet1/15
- switchport trunk allowed vlan 1,2,99,131,1002-1005
+interface GigabitEthernet3/3
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
  switchport mode trunk
 !             
 interface Vlan99
- ip address 192.168.99.243 255.255.255.0
+ ip address 192.168.99.241 255.255.255.0
  no shutdown
 !
 ip default-gateway 192.168.99.254
