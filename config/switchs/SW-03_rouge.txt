@@ -2,7 +2,7 @@ enable
 !
 configure terminal
 !
-hostname SW-01
+hostname SW-03
 !
 no ip routing
 !
@@ -20,8 +20,6 @@ line vty 0 15
  login local
  transport input ssh
 !
-vtp file vlan:nvram.dat
-!
 vtp version 2
 !
 vtp domain meditechbelgica.be
@@ -34,35 +32,25 @@ ip dhcp snooping
 no ip dhcp snooping information option
 ip dhcp snooping vlan 1,2,10,20,50,90,99,100,131,1002-1005
 !
-interface FastEthernet1/1
+interface G1/1
  switchport mode access
- switchport access vlan 100
+ switchport access vlan 131
+ ip dhcp snooping limit rate 100
+!
+interface G1/2
+ switchport mode access
+ switchport access vlan 131
+ ip dhcp snooping limit rate 100
+!
+interface G3/2
+ switchport trunk allowed vlan 1,2,99,131,1002-1005
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
  ip dhcp snooping trust
  ip dhcp snooping limit rate 100
 !
-interface FastEthernet1/2
- switchport mode access
- switchport access vlan 50
- ip dhcp snooping limit rate 100
-!
-interface FastEthernet1/3
- switchport mode access
- switchport access vlan 90
- ip dhcp snooping limit rate 100
-!
-interface FastEthernet1/14
- switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
- switchport mode trunk
- ip dhcp snooping limit rate 100
-!    
-interface FastEthernet1/15
- switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
- switchport mode trunk
- ip dhcp snooping limit rate 100
-!             
 interface Vlan99
- ip address 192.168.99.241 255.255.255.0
- no shutdown
+ ip address 192.168.99.243 255.255.255.0
 !
 ip default-gateway 192.168.99.254
 !
