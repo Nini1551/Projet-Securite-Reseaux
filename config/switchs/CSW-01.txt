@@ -37,7 +37,7 @@ vlan 100
 vlan 131
  name PATIENT
 !
-username admin privilege 15 secret KnoppersMilk123
+username admin privilege 15 secret KnoppersMilk123.
 username helpdesk privilege 1 secret cisco
 !
 crypto key generate rsa
@@ -48,6 +48,7 @@ ip ssh version 2
 line vty 0 15
  login local
  transport input ssh
+ access-class SSH in
 !
 interface FastEthernet1/15
  no switchport
@@ -117,6 +118,126 @@ ip dhcp pool vlan131
  default-router 172.16.31.254
  domain-name meditechbelgica.be
  dns-server 192.168.0.254
+!
+ip access-list extended MEDECIN
+ permit tcp 192.168.10.0 0.0.0.255 host 172.16.0.1 eq www
+ permit tcp 192.168.10.0 0.0.0.255 host 172.16.0.1 eq 443
+ permit tcp 192.168.10.0 0.0.0.255 host 192.168.90.1 eq domain
+ permit udp 192.168.10.0 0.0.0.255 host 192.168.90.1 eq domain
+ permit udp host 0.0.0.0 eq bootpc host 255.255.255.255 eq bootps
+ permit udp 192.168.10.0 0.0.0.255 eq bootpc host 192.168.90.1 eq bootps
+ deny ip 192.168.10.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 172.16.31.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.50.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.90.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.99.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.100.0 0.0.0.255
+ permit ip 192.168.10.0 0.0.0.255 any
+!
+ip access-list extended SECRETAIRE
+ permit tcp 192.168.20.0 0.0.0.255 host 172.16.0.1 eq www
+ permit tcp 192.168.20.0 0.0.0.255 host 172.16.0.1 eq 443
+ permit tcp 192.168.20.0 0.0.0.255 host 192.168.90.1 eq domain
+ permit udp 192.168.20.0 0.0.0.255 host 192.168.90.1 eq domain
+ permit udp host 0.0.0.0 eq bootpc host 255.255.255.255 eq bootps
+ permit udp 192.168.20.0 0.0.0.255 eq bootpc host 192.168.90.1 eq bootps
+ deny ip 192.168.20.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 172.16.31.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.50.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.90.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.99.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.100.0 0.0.0.255
+ permit ip 192.168.20.0 0.0.0.255 any
+!
+ip access-list extended DB
+ permit tcp 192.168.50.0 0.0.0.255 host 172.16.0.1 eq www
+ permit tcp 192.168.50.0 0.0.0.255 host 172.16.0.1 eq 443
+ permit tcp 192.168.50.0 0.0.0.255 host 192.168.90.1 eq domain
+ permit udp 192.168.50.0 0.0.0.255 host 192.168.90.1 eq domain
+ deny ip 192.168.50.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 172.16.31.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 192.168.90.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 192.168.99.0 0.0.0.255
+ deny ip 192.168.50.0 0.0.0.255 192.168.100.0 0.0.0.255
+ permit ip 192.168.50.0 0.0.0.255 any
+!
+ip access-list extended WIN-SERVER
+ permit tcp 192.168.90.0 0.0.0.255 host 172.16.0.1 eq www
+ permit tcp 192.168.90.0 0.0.0.255 host 172.16.0.1 eq 443
+ permit tcp 192.168.90.0 0.0.0.255 eq domain any 
+ permit udp 192.168.90.0 0.0.0.255 eq domain any
+ permit udp host 192.168.90.1 eq bootps host 192.168.10.254 eq bootps
+ permit udp host 192.168.90.1 eq bootps host 192.168.20.254 eq bootps
+ deny ip 192.168.90.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 172.16.31.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 192.168.50.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 192.168.90.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 192.168.99.0 0.0.0.255
+ deny ip 192.168.90.0 0.0.0.255 192.168.100.0 0.0.0.255
+ permit ip 192.168.90.0 0.0.0.255 any
+!
+ip access-list extended MANAGEMENT
+ permit tcp 192.168.99.0 0.0.0.255 eq 22 192.168.100.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 172.16.31.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 192.168.50.0 0.0.0.255
+ deny ip 192.168.99.0 0.0.0.255 192.168.90.0 0.0.0.255
+ permit ip 192.168.99.0 0.0.0.255 any
+!
+ip access-list extended DMZ
+ permit tcp 172.16.0.0 0.0.0.255 any eq www
+ permit tcp 172.16.0.0 0.0.0.255 any eq 443
+ permit tcp 172.16.0.0 0.0.0.255 eq www any
+ permit tcp 172.16.0.0 0.0.0.255 eq 443 any
+ permit tcp 172.16.0.0 0.0.0.255 any eq domain
+ permit udp 172.16.0.0 0.0.0.255 any eq domain
+!
+ip access-list extended PATIENT
+ permit tcp 172.16.31.0 0.0.0.255 host 172.16.0.1 eq www
+ permit tcp 172.16.31.0 0.0.0.255 host 172.16.0.1 eq 443
+ permit tcp 172.16.31.0 0.0.0.255 host 192.168.0.254 eq domain
+ permit udp 172.16.31.0 0.0.0.255 host 192.168.0.254 eq domain
+ permit udp host 0.0.0.0 eq bootpc host 255.255.255.255 eq bootps
+ permit udp 172.16.31.0 0.0.0.255 eq bootpc host 192.168.0.254 eq bootps
+ deny ip 172.16.31.0 0.0.0.255 172.16.0.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.10.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.20.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.50.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.90.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.99.0 0.0.0.255
+ deny ip 172.16.31.0 0.0.0.255 192.168.100.0 0.0.0.255
+ permit ip 172.16.31.0 0.0.0.255 any 
+!
+ip access-list standard SSH
+ permit 192.168.100.0 0.0.0.255
+!
+interface vlan 10
+ ip access-group MEDECIN in
+!
+interface vlan 20
+ ip access-group SECRETAIRE in
+!
+interface vlan 50
+ ip access-group DB in
+!
+interface vlan 90
+ ip access-group WIN-SERVER in
+!
+interface vlan 99
+ ip access-group MANAGEMENT in
+!
+interface vlan 100
+ ip access-group DMZ in
+!
+interface vlan 131
+ ip access-group PATIENT in
 !
 end
 !

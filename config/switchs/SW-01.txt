@@ -19,6 +19,7 @@ ip ssh version 2
 line vty 0 15
  login local
  transport input ssh
+ access-class SSH in
 !
 vtp file vlan:nvram.dat
 !
@@ -33,25 +34,34 @@ vtp mode client
 interface GigabitEthernet1/1
  switchport mode access
  switchport access vlan 100
+ ip arp inspection trust
 !
 interface GigabitEthernet1/2
  switchport mode access
  switchport access vlan 50
+ ip arp inspection trust
 !
 interface GigabitEthernet1/3
  switchport mode access
  switchport access vlan 90
+ ip arp inspection trust
 !
 interface GigabitEthernet3/3
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 1,2,50,90,99,100,1002-1005
  switchport mode trunk
+ ip arp inspection trust
 !             
 interface Vlan99
  ip address 192.168.99.241 255.255.255.0
  no shutdown
 !
 ip default-gateway 192.168.99.254
+!
+ip arp inspection vlan 50,90,99,100
+!
+ip access-list standard SSH
+ permit 192.168.100.0 0.0.0.255
 !
 end
 !
