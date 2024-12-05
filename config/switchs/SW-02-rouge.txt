@@ -33,38 +33,53 @@ vtp mode client
 interface GigabitEthernet1/1
  switchport mode access
  switchport access vlan 10
+ ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet1/2
  switchport mode access
  switchport access vlan 10
+ ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet1/3
  switchport mode access
  switchport access vlan 10
+ ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet2/1
  switchport mode access
  switchport access vlan 20
+ ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet2/2
  switchport mode access
  switchport access vlan 20
+ ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet3/2
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 1,2,10,20,99,1002-1005
  switchport mode trunk
+ ip dhcp snooping limit rate 100
+ ip dhcp snooping trust
 !    
 interface GigabitEthernet3/3
  switchport trunk encapsulation dot1q
  switchport trunk allowed vlan 1,2,10,20,99,1002-1005
  switchport mode trunk
+ ip dhcp snooping limit rate 100
+ ip dhcp snooping trust
 !               
 interface Vlan99
  ip address 192.168.99.242 255.255.255.0
  no shutdown
 !
 ip default-gateway 192.168.99.254
+!
+spanning-tree vlan 1,2,10,20,50,90,99,100,131,1002-1005 root primary
+!
+ip dhcp snooping
+no ip dhcp snooping information option
+ip dhcp snooping vlan 1,2,10,20,50,90,99,100,131,1002-1005
 !
 end
 !

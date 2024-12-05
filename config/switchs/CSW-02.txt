@@ -49,9 +49,17 @@ line vty 0 15
  login local
  transport input ssh
 !
+interface Port-channel1
+ switchport trunk allowed vlan 1,2,10,20,50,90,99,100,131,1002-1005
+ switchport mode trunk
+!
 interface FastEthernet1/15
  no switchport
  ip address 192.168.0.250 255.255.255.248
+ standby version 2
+ standby 0 ip 192.168.0.251
+ standby 0 root 100
+ standby 0 preempt
  no shutdown
 !
 interface range FastEthernet1/13 - 14
@@ -72,7 +80,7 @@ interface vlan 10
  ip helper-address 192.168.90.1
  standby version 2
  standby 10 ip 192.168.10.254
- standby 10 priority 100
+ standby 10 root 100
  standby 10 preempt
  standby 10 track F1/15
  no shutdown
@@ -82,7 +90,7 @@ interface vlan 20
  ip helper-address 192.168.90.1
  standby version 2
  standby 20 ip 192.168.20.254
- standby 20 priority 100
+ standby 20 root 100
  standby 20 preempt
  standby 20 track F1/15
  no shutdown
@@ -91,7 +99,7 @@ interface vlan 50
  ip address 192.168.50.250 255.255.255.0
  standby version 2
  standby 50 ip 192.168.50.254
- standby 50 priority 100
+ standby 50 root 100
  standby 50 preempt
  standby 50 track F1/15
  no shutdown
@@ -100,7 +108,7 @@ interface vlan 90
  ip address 192.168.90.250 255.255.255.0
  standby version 2
  standby 90 ip 192.168.90.254
- standby 90 priority 100
+ standby 90 root 100
  standby 90 preempt
  standby 90 track F1/15
  no shutdown
@@ -109,7 +117,7 @@ interface vlan 99
  ip address 192.168.99.250 255.255.255.0
  standby version 2
  standby 99 ip 192.168.99.254
- standby 99 priority 100
+ standby 99 root 100
  standby 99 preempt
  standby 99 track F1/15
  no shutdown
@@ -118,7 +126,7 @@ interface vlan 100
  ip address 172.16.0.250 255.255.255.0
  standby version 2
  standby 100 ip 172.16.0.254
- standby 100 priority 100
+ standby 100 root 100
  standby 100 preempt
  standby 100 track F1/15
  no shutdown
@@ -128,7 +136,7 @@ interface vlan 131
  ip helper-address 192.168.90.1
  standby version 2
  standby 131 ip 172.16.31.254
- standby 131 priority 100
+ standby 131 root 100
  standby 131 preempt
  standby 131 track F1/15
  no shutdown
@@ -160,6 +168,20 @@ ip dhcp pool vlan131
  default-router 172.16.31.254
  domain-name meditechbelgica.be
  dns-server 192.168.0.254
+!
+spanning-tree vlan 1 root secondary
+spanning-tree vlan 2 root secondary 
+spanning-tree vlan 10 root secondary
+spanning-tree vlan 20 root secondary 
+spanning-tree vlan 50 root secondary
+spanning-tree vlan 90 root secondary 
+spanning-tree vlan 99 root secondary
+spanning-tree vlan 100 root secondary 
+spanning-tree vlan 131 root secondary 
+spanning-tree vlan 1002 root secondary
+spanning-tree vlan 1003 root secondary
+spanning-tree vlan 1004 root secondary 
+spanning-tree vlan 1005 root secondary 
 !
 end
 !

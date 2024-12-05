@@ -58,6 +58,8 @@ interface Vlan99
 !
 ip default-gateway 192.168.99.254
 !
+spanning-tree vlan 1,2,10,20,50,90,99,100,131,1002-1005 root primary
+!
 end
 !
 copy running-config startup-config
