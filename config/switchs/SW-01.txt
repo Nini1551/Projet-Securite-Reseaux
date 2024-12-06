@@ -34,16 +34,28 @@ vtp mode client
 interface GigabitEthernet1/1
  switchport mode access
  switchport access vlan 100
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip arp inspection trust
 !
 interface GigabitEthernet1/2
  switchport mode access
  switchport access vlan 50
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip arp inspection trust
 !
 interface GigabitEthernet1/3
  switchport mode access
  switchport access vlan 90
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip arp inspection trust
 !
 interface GigabitEthernet3/3

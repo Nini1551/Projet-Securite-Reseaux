@@ -34,26 +34,46 @@ vtp mode client
 interface GigabitEthernet1/1
  switchport mode access
  switchport access vlan 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet1/2
  switchport mode access
  switchport access vlan 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet1/3
  switchport mode access
  switchport access vlan 10
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet2/1
  switchport mode access
  switchport access vlan 20
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip dhcp snooping limit rate 100
 !
 interface GigabitEthernet2/2
  switchport mode access
  switchport access vlan 20
+ switchport port-security
+ switchport port-security mac-address sticky
+ spanning-tree bpduguard enable
+ no cdp enable
  ip dhcp snooping limit rate 100
 !  
 interface GigabitEthernet3/3
